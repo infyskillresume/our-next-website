@@ -121,7 +121,16 @@ export default function ChatbotWidget() {
         onClick={toggleWidget}
         aria-label={isOpen ? 'Close chatbot' : 'Open chatbot'}
       >
-        <i className="fa-solid fa-message"></i>
+        <div className="robot-face">
+          <div className="robot-head">
+            <div className="robot-antenna"></div>
+            <div className="robot-eyes">
+              <div className="robot-eye left"></div>
+              <div className="robot-eye right"></div>
+            </div>
+            <div className="robot-mouth"></div>
+          </div>
+        </div>
       </button>
 
       <div className={`chatbot-panel ${isOpen ? 'chatbot-panel-open' : ''}`} role="dialog" aria-modal="false">

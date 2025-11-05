@@ -4010,36 +4010,259 @@ section {
     }
 }
 
+/* ==================== CHATBOT TOGGLE - MODERN ROBOT ==================== */
 .chatbot-toggle {
-    position: fixed;
+    position: fixed !important;
     bottom: 32px;
     right: 32px;
-    width: 64px;
-    height: 64px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4338ca, #0ea5e9);
-    color: #fff;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 25px 35px -20px rgba(15, 23, 42, 0.45);
+    box-shadow: 
+        0 8px 32px rgba(79, 172, 254, 0.4),
+        0 0 0 0 rgba(79, 172, 254, 0.7),
+        inset 0 -8px 20px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    z-index: 1200;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 9999;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: visible;
+    animation: robotPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.chatbot-toggle i {
-    font-size: 1.5rem;
+.chatbot-toggle::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(12px);
+    z-index: -1;
+    animation: robotGlow 2s ease-in-out infinite alternate;
 }
 
 .chatbot-toggle:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 45px -25px rgba(15, 23, 42, 0.55);
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: 
+        0 12px 48px rgba(79, 172, 254, 0.6),
+        0 0 60px rgba(79, 172, 254, 0.4);
+    animation: none;
+}
+
+.chatbot-toggle:active {
+    transform: translateY(-4px) scale(1.05);
 }
 
 .chatbot-toggle-open {
-    box-shadow: 0 25px 45px -20px rgba(67, 56, 202, 0.5);
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+    animation: none;
+}
+
+/* Robot Face Container */
+.robot-face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: robotFloat 3s ease-in-out infinite;
+}
+
+.robot-head {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(145deg, #ffffff 0%, #e3f2fd 100%);
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 4px 8px rgba(255, 255, 255, 0.8),
+        inset 0 -4px 8px rgba(79, 172, 254, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Antenna */
+.robot-antenna {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 8px;
+    background: linear-gradient(to bottom, #4facfe, #00f2fe);
+    border-radius: 2px;
+}
+
+.robot-antenna::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.8);
+    animation: antennaBlink 1.5s ease-in-out infinite;
+}
+
+/* Eyes */
+.robot-eyes {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.robot-eye {
+    width: 8px;
+    height: 10px;
+    background: linear-gradient(135deg, #4facfe 0%, #0084ff 100%);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        0 0 8px rgba(79, 172, 254, 0.6);
+    animation: eyeBlink 4s ease-in-out infinite;
+}
+
+.robot-eye::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+}
+
+/* Mouth */
+.robot-mouth {
+    width: 16px;
+    height: 8px;
+    border: 2px solid #4facfe;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    margin-top: 3px;
+    position: relative;
+}
+
+.robot-mouth::before,
+.robot-mouth::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 4px;
+    background: #4facfe;
+    border-radius: 2px;
+}
+
+.robot-mouth::before {
+    left: 3px;
+    bottom: 0;
+}
+
+.robot-mouth::after {
+    right: 3px;
+    bottom: 0;
+}
+
+/* Animations */
+@keyframes robotPulse {
+    0%, 100% {
+        box-shadow: 
+            0 8px 32px rgba(79, 172, 254, 0.4),
+            0 0 0 0 rgba(79, 172, 254, 0.7),
+            inset 0 -8px 20px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 8px 32px rgba(79, 172, 254, 0.4),
+            0 0 0 12px rgba(79, 172, 254, 0),
+            inset 0 -8px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes robotGlow {
+    from {
+        opacity: 0.2;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes robotFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes antennaBlink {
+    0%, 90%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(79, 172, 254, 0.8);
+    }
+    95% {
+        opacity: 0.3;
+        box-shadow: 0 0 4px rgba(79, 172, 254, 0.3);
+    }
+}
+
+@keyframes eyeBlink {
+    0%, 48%, 52%, 100% {
+        height: 10px;
+    }
+    50% {
+        height: 2px;
+    }
+}
+
+/* Hover Effects */
+.chatbot-toggle:hover .robot-head {
+    animation: headShake 0.5s ease-in-out;
+}
+
+.chatbot-toggle:hover .robot-eye {
+    animation: eyeExcited 0.6s ease-in-out;
+}
+
+@keyframes headShake {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-8deg);
+    }
+    75% {
+        transform: rotate(8deg);
+    }
+}
+
+@keyframes eyeExcited {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
 }
 
 .chatbot-panel {
@@ -4057,7 +4280,7 @@ section {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 1200;
+    z-index: 9998;
     max-height: 540px;
     overflow: hidden;
 }
@@ -4173,6 +4396,36 @@ section {
         right: 16px;
         width: 56px;
         height: 56px;
+    }
+
+    .robot-head {
+        width: 34px;
+        height: 34px;
+    }
+
+    .robot-antenna {
+        height: 6px;
+    }
+
+    .robot-antenna::after {
+        width: 5px;
+        height: 5px;
+    }
+
+    .robot-eyes {
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    .robot-eye {
+        width: 6px;
+        height: 8px;
+    }
+
+    .robot-mouth {
+        width: 12px;
+        height: 6px;
+        margin-top: 2px;
     }
 
     .chatbot-panel {
