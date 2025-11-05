@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "middleware": {
+    "/": {
+      "files": [
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/middleware.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/dashboard(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(.json)?[\\/#\\?]?$",
+          "originalSource": "/dashboard/:path*"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/create-resume(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(.json)?[\\/#\\?]?$",
+          "originalSource": "/create-resume/:path*"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/portfolio-generator(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(.json)?[\\/#\\?]?$",
+          "originalSource": "/portfolio-generator/:path*"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/login(.json)?[\\/#\\?]?$",
+          "originalSource": "/login"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/signup(.json)?[\\/#\\?]?$",
+          "originalSource": "/signup"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "L2D0Su911-w0moXkwwxqL",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "n5yZe4k26vnH+8gGE4soL6XZ3yD3/j+7lkv+vKezf6M=",
+        "__NEXT_PREVIEW_MODE_ID": "734bf4ef65f057e5a93e8bed8cc9e7fa",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "31aff11121560f6a70d5e7cf2aec044a96e5f3f743660241eb1330c9b51b4a9e",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "ae7d201e4b38714a1c26906e6eb18cd14fef7debe01d14e0bb63859a4826f173"
+      }
+    }
+  },
+  "functions": {},
+  "sortedMiddleware": [
+    "/"
+  ]
+}
