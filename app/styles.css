@@ -3064,6 +3064,10 @@ section {
     font-size: 1.1rem;
 }
 
+.btn-large i {
+    margin-right: 8px;
+}
+
 /* Resume Builder Section */
 .resume-builder {
     padding: 80px 0;
@@ -3243,101 +3247,298 @@ section {
 /* Resume Templates Section */
 .resume-templates {
     padding: 80px 0;
-    background-color: #f8fafc;
+    background-color: white;
 }
 
-.section-header {
+.templates-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
-.section-header h2 {
-    font-size: 2.2rem;
+.templates-header h2 {
+    font-size: 2.5rem;
     margin-bottom: 15px;
     color: var(--dark-color);
+    font-weight: 700;
 }
 
-.section-header p {
+.templates-header p {
     color: var(--gray-color);
-    max-width: 600px;
+    font-size: 1.1rem;
+    max-width: 700px;
     margin: 0 auto;
 }
 
-.template-grid {
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.template-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.template-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border-color: rgba(79, 70, 229, 0.3);
+}
+
+.template-card.featured {
+    border-color: #4f46e5;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.template-preview {
+    height: 320px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.template-mockup {
+    width: 100%;
+    max-width: 200px;
+    height: 280px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.template-card:hover .template-mockup {
+    transform: scale(1.05) rotateY(5deg);
+}
+
+.mock-header {
+    height: 60px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.mock-header.blue {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.mock-header.gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.mock-header.simple {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.mock-content {
+    padding: 15px;
+}
+
+.mock-line {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.mock-line.short {
+    width: 60%;
+}
+
+.template-card h3 {
+    font-size: 1.2rem;
+    margin: 20px 20px 8px;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.template-card p {
+    color: var(--gray-color);
+    margin: 0 20px 20px;
+    font-size: 0.9rem;
+}
+
+.templates-cta {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.templates-cta .btn-large {
+    padding: 18px 40px;
+    font-size: 1.15rem;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+    transition: all 0.3s ease;
+}
+
+.templates-cta .btn-large i {
+    margin-right: 10px;
+}
+
+.templates-cta .btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(79, 70, 229, 0.4);
+}
+
+.templates-note {
+    margin-top: 20px;
+    color: var(--gray-color);
+    font-size: 0.95rem;
+}
+
+.templates-note i {
+    color: #10b981;
+    margin-right: 8px;
+}
+
+/* Resume Benefits Section */
+.resume-benefits {
+    padding: 80px 0;
+    background-color: #f8fafc;
+}
+
+.resume-benefits .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--dark-color);
+    font-weight: 700;
+}
+
+.benefits-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
-.template-card {
+.benefit-item {
     background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    padding: 35px 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s ease;
 }
 
-.template-card:hover {
-    transform: translateY(-5px);
+.benefit-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
-.template-preview {
-    height: 350px;
-    overflow: hidden;
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
 }
 
-.template-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.benefit-icon i {
+    font-size: 2rem;
+    color: white;
 }
 
-.template-card:hover .template-preview img {
-    transform: scale(1.05);
-}
-
-.template-info {
-    padding: 20px;
-}
-
-.template-info h3 {
+.benefit-item h3 {
     font-size: 1.3rem;
-    margin-bottom: 5px;
+    margin-bottom: 12px;
     color: var(--dark-color);
+    font-weight: 600;
 }
 
-.template-info p {
+.benefit-item p {
     color: var(--gray-color);
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-}
-
-.template-info .btn {
-    margin-right: 10px;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* CTA Section */
 .resume-cta {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    padding: 100px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.resume-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
 }
 
 .cta-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
 .cta-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
-    max-width: 600px;
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.cta-content .btn-large {
+    background: white;
+    color: #667eea;
+    padding: 18px 45px;
+    font-size: 1.15rem;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cta-content .btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    background: #f8fafc;
+}
+
+.cta-content .btn-large i {
+    margin-left: 10px;
 }
 
 /* Responsive Styles */
