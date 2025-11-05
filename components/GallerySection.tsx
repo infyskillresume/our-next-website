@@ -10,74 +10,43 @@ export default function GallerySection() {
     '/images/image07.jpg', '/images/image08.jpg', '/images/image09.jpg',
     '/images/image10.jpg', '/images/image20.jpg', '/images/image12.jpg',
     '/images/image15.jpg', '/images/image16.jpg', '/images/image17.jpg', 
-    '/images/image18.jpg',
+    '/images/image18.jpg','images/image19.jpg','images/image11.jpg','images/image13.jpg','images/image21.jpg','images/image22.jpg','images/image23.jpg'
   ];
 
+  const [selectedImage, setSelectedImage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [velocity, setVelocity] = useState(0);
-  const [lastX, setLastX] = useState(0);
-  const [lastTime, setLastTime] = useState(0);
-  const animationFrameRef = useRef<number | null>(null);
+  const [hasMoved, setHasMoved] = useState(false);
 
-  // Momentum scrolling
-  const applyMomentum = () => {
-    if (!containerRef.current || Math.abs(velocity) < 0.5) {
-      setVelocity(0);
-      return;
+  // Handle thumbnail click
+  const handleThumbnailClick = (index: number) => {
+    if (!hasMoved) {
+      setSelectedImage(index);
+      gsap.fromTo(
+        '.gallery-featured-image',
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }
+      );
     }
-
-    const container = containerRef.current;
-    container.scrollLeft -= velocity;
-    setVelocity(velocity * 0.95); // Friction
-    animationFrameRef.current = requestAnimationFrame(applyMomentum);
   };
-
-  useEffect(() => {
-    if (!isDragging && Math.abs(velocity) > 0.5) {
-      animationFrameRef.current = requestAnimationFrame(applyMomentum);
-    }
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [isDragging, velocity]);
 
   // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
     setIsDragging(true);
+    setHasMoved(false);
     setStartX(e.pageX - containerRef.current.offsetLeft);
     setScrollLeft(containerRef.current.scrollLeft);
-    setLastX(e.pageX);
-    setLastTime(Date.now());
-    setVelocity(0);
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !containerRef.current) return;
     e.preventDefault();
-
-    const currentTime = Date.now();
-    const currentX = e.pageX;
-    const timeDelta = currentTime - lastTime;
-
-    if (timeDelta > 0) {
-      const newVelocity = (currentX - lastX) / timeDelta * 10;
-      setVelocity(newVelocity);
-    }
-
-    setLastX(currentX);
-    setLastTime(currentTime);
-
+    setHasMoved(true);
     const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Drag speed multiplier
+    const walk = (x - startX) * 1.5;
     containerRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -86,42 +55,23 @@ export default function GallerySection() {
   };
 
   const handleMouseLeave = () => {
-    if (isDragging) {
-      setIsDragging(false);
-    }
+    setIsDragging(false);
   };
 
-  // Touch handlers for mobile
+  // Touch handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!containerRef.current) return;
     setIsDragging(true);
+    setHasMoved(false);
     setStartX(e.touches[0].pageX - containerRef.current.offsetLeft);
     setScrollLeft(containerRef.current.scrollLeft);
-    setLastX(e.touches[0].pageX);
-    setLastTime(Date.now());
-    setVelocity(0);
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging || !containerRef.current) return;
-
-    const currentTime = Date.now();
-    const currentX = e.touches[0].pageX;
-    const timeDelta = currentTime - lastTime;
-
-    if (timeDelta > 0) {
-      const newVelocity = (currentX - lastX) / timeDelta * 10;
-      setVelocity(newVelocity);
-    }
-
-    setLastX(currentX);
-    setLastTime(currentTime);
-
+    setHasMoved(true);
     const x = e.touches[0].pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 1.5;
     containerRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -150,34 +100,46 @@ export default function GallerySection() {
       <div className="container">
         <h2 className="section-title">Our Gallery</h2>
         
-        <div
-          ref={containerRef}
-          className={`gallery-carousel-container ${isDragging ? 'dragging' : ''}`}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="gallery-carousel-track">
-            {images.map((img, index) => (
-              <div key={index} className="gallery-item-card">
-                <img 
-                  src={img} 
-                  alt={`Gallery Image ${index + 1}`}
-                  draggable={false}
-                />
-                <div className="gallery-item-overlay">
-                  <span className="gallery-item-number">{index + 1}</span>
+        <div className="gallery-layout">
+          {/* Featured Image */}
+          <div className="gallery-featured">
+            <img 
+              src={images[selectedImage]} 
+              alt="Featured Gallery Image"
+              className="gallery-featured-image"
+            />
+          </div>
+
+          {/* Thumbnail Carousel */}
+          <div 
+            ref={containerRef}
+            className={`gallery-thumbnails-container ${isDragging ? 'dragging' : ''}`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="gallery-thumbnails-track">
+              {images.map((img, index) => (
+                <div 
+                  key={index} 
+                  className={`gallery-thumbnail ${selectedImage === index ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick(index)}
+                >
+                  <img 
+                    src={img} 
+                    alt={`Thumbnail ${index + 1}`}
+                    draggable={false}
+                  />
+                  <div className="thumbnail-overlay"></div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-
-        <p className="gallery-hint">← Drag to scroll →</p>
       </div>
     </section>
   );
